@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Pet Nutrition App</string>
+
+    <!-- String for Navigation Fragment -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!-- Loading Titles and Subtitles -->
+    <string name="loading_title">Welcome to Dog Nut</string>
+    <string name="loading_subtitle" tools:ignore="StringEscaping">
+        Sign in to explore a wide range of top-quality dog nutrition products.
+        Don not have an account yet?
+        Register now to enjoy a seamless and secure shopping experience for your furry friend.
+    </string>
+
+    <string name="let_s_get_start" tools:ignore="StringEscaping">Get Started</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="foods">Foods</string>
+    <string name="see_all">See all</string>
+    <string name="categories">Categories</string>
+    <string name="explorer">Explore</string>
+    <string name="profile">Profile</string>
+    <string name="my_order">My Order</string>
+    <string name="blog">Blog</string>
+    <string name="cart">Cart</string>
+    <string name="title">Title</string>
+    <string name="description">description</string>
+    <string name="my_cart">My Cart</string>
+
+</resources>
