@@ -149,6 +149,7 @@ class HomeActivity : BaseActivity() {
                     putExtra("foodPrice", selectedItem.price)
                     putExtra("foodDescription", selectedItem.description)
                     putExtra("foodId", selectedItem.foodId)
+                    putExtra("categoryId", selectedItem.categoryId)
                     putExtra("userId", userId)
 
                 }

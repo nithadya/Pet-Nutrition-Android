@@ -57,12 +57,16 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/signup2" />
+
+<!--                <com.airbnb.lottie.LottieAnimationView-->
+<!--                    android:id="@+id/animation_view"-->
+<!--                    android:layout_width="250dp"-->
+<!--                    android:layout_height="250dp"-->
+<!--                    app:lottie_autoPlay="true"-->
+<!--                    app:lottie_loop="true"-->
+
+<!--                    tools:layout_gravity="center" />-->
+
             </LinearLayout>
         </ScrollView>
 

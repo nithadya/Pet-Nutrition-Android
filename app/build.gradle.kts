@@ -47,7 +47,7 @@ dependencies {
     val lifecycleVersion = "2.8.5"
     val coroutineVersion = "1.3.9"
     val materialUIv190 = "1.9.0"
-    val lottieVersion = "3.4.0"
+    val lottieVersion = "6.0.0"
 
 
 
