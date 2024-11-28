@@ -78,5 +78,10 @@ dependencies {
 
     //Custom Toast
     implementation ("com.github.Spikeysanju:MotionToast:1.4")
-    implementation ("com.airbnb.android:lottie:$lottieVersion")
+//    implementation ("com.airbnb.android:lottie:$lottieVersion")
+    implementation ("com.airbnb.android:lottie:5.2.0")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    //shimmer
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
 }

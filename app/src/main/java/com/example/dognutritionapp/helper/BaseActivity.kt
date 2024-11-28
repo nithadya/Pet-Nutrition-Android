@@ -1,15 +1,18 @@
 package com.example.dognutritionapp.helper
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.dognutritionapp.R
+import com.example.dognutritionapp.ui.LoadingActivity
 
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +44,10 @@ open class BaseActivity : AppCompatActivity() {
             // Apply padding to avoid overlap with system bars
             view.setPadding(0, systemInsets.top, 0, systemInsets.bottom)
             WindowInsetsCompat.CONSUMED
+
+
+
         }
+
     }
 }

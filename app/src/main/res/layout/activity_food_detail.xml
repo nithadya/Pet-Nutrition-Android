@@ -8,6 +8,15 @@
     android:background="@color/white"
     tools:context=".ui.FoodDetailActivity">
 
+    <ImageView
+        android:id="@+id/foodCartBk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/profile2"
+        android:alpha="0.5"
+        android:scaleType="centerInside"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,10 +28,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="48dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_height="match_parent">
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp">
 
                 <ImageView
                     android:id="@+id/backBtn"
@@ -121,35 +130,39 @@
                 android:layout_margin="16dp"
                 android:text="description" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/addToCartBtn"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/green_btn_background"
-                    style="@android:style/Widget.Button"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:text="Buy Now" />
-
-                <ImageButton
-                    android:id="@+id/cartBtn"
-                    android:layout_margin="7dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/green_btn_background"
-                    app:srcCompat="@drawable/btn_2"
-                    app:tint="@color/white" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/foodCartBk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addToCartBtn"
+            style="@android:style/Widget.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/green_btn_background"
+            android:text="Buy Now"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/cartBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/green_btn_background"
+            app:srcCompat="@drawable/btn_2"
+            app:tint="@color/white" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

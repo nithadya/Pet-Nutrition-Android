@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/loadin2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/gray_cart_bg"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,83 +24,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/contentTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true">
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editext_bg"
+            android:ems="10"
+            android:fontFamily="@font/font1medium"
+            android:inputType="text"
+            android:padding="12dp"
+            android:text="Content Title"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/contentTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:hint="Content Title"
-                android:padding="12dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/contentDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true">
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editext_bg"
+            android:ems="10"
+            android:fontFamily="@font/font1medium"
+            android:inputType="text"
+            android:padding="12dp"
+            android:text="Content Description"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/contentDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:hint="Content Description"
-                android:padding="12dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/contentUrl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintAnimationEnabled="true"
-            app:hintEnabled="true">
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editext_bg"
+            android:ems="10"
+            android:fontFamily="@font/font1medium"
+            android:inputType="text"
+            android:padding="12dp"
+            android:text="Content URL"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/contentUrl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext_background"
-                android:hint="Content URL"
-                android:padding="12dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/selectImageButton"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/green_btn_background"
-            android:text="Select Image" />
-
-        <ImageView
-            android:id="@+id/imagePreview"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:orientation="horizontal">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/selectImageButton"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:background="@drawable/editext_bg"
+                android:clickable="true"
+                android:contentDescription="Lottie Button"
+                android:focusable="true"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/uploader"
+                app:lottie_speed="1.0"
+                tools:layout_gravity="center" />
+
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_weight="0.8"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:srcCompat="@drawable/login6" />
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addContentButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             style="@android:style/Widget.Button"
-            android:background="@drawable/green_btn_background"
-            android:text="Add Content" />
-
-        <EditText
-            android:id="@+id/editTextTextMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:layout_margin="16dp"
+            android:background="@drawable/green_btn_background"
+            android:text="Add Content"
+
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

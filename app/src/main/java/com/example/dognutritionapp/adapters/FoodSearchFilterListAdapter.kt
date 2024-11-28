@@ -1,19 +1,14 @@
 package com.example.dognutritionapp.adapters
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dognutritionapp.R
-import com.example.dognutritionapp.data.Category
 import com.example.dognutritionapp.data.PetFoods
 
 class FoodSearchFilterListAdapter(
@@ -22,9 +17,9 @@ class FoodSearchFilterListAdapter(
 ) : RecyclerView.Adapter<FoodSearchFilterListAdapter.PetFoodViewHolder>() {
 
     inner class PetFoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val petFoodTitle: TextView = itemView.findViewById(R.id.foodCardTitle)
-        private val petFoodPrice: TextView = itemView.findViewById(R.id.foodListPrice)
-        private val petFoodImage: ImageView = itemView.findViewById(R.id.foodListImg)
+        private val petFoodTitle: TextView = itemView.findViewById(R.id.foodCardTitleShimmer)
+        private val petFoodPrice: TextView = itemView.findViewById(R.id.foodListPriceShimmer)
+        private val petFoodImage: ImageView = itemView.findViewById(R.id.foodListImgShimmer)
 
         fun bindPetFoodData(petFoods: PetFoods, clickListener: (PetFoods) -> Unit) {
             petFoodTitle.text = petFoods.name

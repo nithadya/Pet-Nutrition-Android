@@ -8,6 +8,14 @@
     android:background="@color/white"
     tools:context=".ui.CartActivity">
 
+    <ImageView
+        android:id="@+id/foodCartBk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.3"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/profile2" />
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
@@ -22,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="38dp"
                 android:layout_marginEnd="16dp">
 
                 <ImageView
@@ -38,11 +46,15 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/splashfontbold"
+                    android:fontFamily="@font/bangers"
+                    android:padding="5dp"
+                    android:shadowColor="@color/lightGrey"
+                    android:shadowDx="4"
+                    android:shadowDy="4"
+                    android:shadowRadius="3"
                     android:text="@string/my_cart"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +65,7 @@
                 android:id="@+id/viewCartList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp" />
+                android:layout_margin="18dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -258,5 +270,24 @@
         app:layout_constraintEnd_toEndOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="@+id/scrollView3"
         app:layout_constraintTop_toTopOf="@+id/scrollView3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Orderbutton"
+        style="@android:style/Widget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/green_btn_background"
+        android:text="Order"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

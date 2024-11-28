@@ -9,12 +9,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.dognutritionapp.Repositories.AppRepository
 import com.example.dognutritionapp.data.EducationalContent
@@ -26,10 +28,11 @@ import com.google.android.material.textfield.TextInputEditText
 
 class AddContentActivity : BaseActivity() {
 
-    private lateinit var etTitle: TextInputEditText
-    private lateinit var etDescription: TextInputEditText
+    private lateinit var etTitle: EditText
+    private lateinit var etDescription: EditText
+    private lateinit var etUrl: EditText
     private lateinit var imagePreview: ImageView
-    private lateinit var btnSelectImage: Button
+    private lateinit var btnSelectImage: LottieAnimationView
     private lateinit var btnSubmit: Button
     private lateinit var viewModel: PetFoodViewModel
     private var selectedImageUri: Uri? = null
@@ -51,8 +54,10 @@ class AddContentActivity : BaseActivity() {
         imagePreview = findViewById(R.id.imagePreview)
         btnSelectImage = findViewById(R.id.selectImageButton)
         btnSubmit = findViewById(R.id.addContentButton)
+        etUrl = findViewById(R.id.contentUrl)
 
         btnSelectImage.setOnClickListener {
+            btnSelectImage.playAnimation()
             openImagePicker()
         }
 
@@ -69,11 +74,18 @@ class AddContentActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            selectedImageUri = data.data
-            Glide.with(this)
-                .load(selectedImageUri)
-                .centerCrop()
-                .into(imagePreview)
+            if (selectedImageUri != null) {
+                // Load the selected image into the ImageView
+                Glide.with(this)
+                    .load(selectedImageUri)
+                    .centerCrop()
+                    .into(imagePreview)
+
+                // Display the selected image URI in the EditText
+                etUrl.setText(selectedImageUri.toString())
+            } else {
+                Toast.makeText(this, "Failed to pick image", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

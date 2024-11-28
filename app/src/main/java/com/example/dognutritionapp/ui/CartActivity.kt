@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.dognutritionapp.R
 import com.example.dognutritionapp.Repositories.AppRepository
 import com.example.dognutritionapp.ViewModel.PetFoodViewModel
@@ -37,7 +38,7 @@ class CartActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        val userId = intent.getIntExtra("userId", -1)
+        val userId = intent.getIntExtra("USER_ID", -1)
 
         // Initialize ViewModel with repository
         val repository = AppRepository(PetFoodDB.getDatabase(applicationContext))
@@ -85,15 +86,46 @@ class CartActivity : BaseActivity() {
                     ResourcesCompat.getFont(this@CartActivity, R.font.font1))
             }
 
+//            override fun onChildDraw(
+//                c: Canvas, recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
+//                actionState: Int, isCurrentlyActive: Boolean
+//            ) {
+//                val itemView = viewHolder.itemView
+////              val background = ColorDrawable(Color.RED)
+//                val background = ColorDrawable(ContextCompat.getColor(this@CartActivity, R.color.green))
+//                val deleteIcon = ContextCompat.getDrawable(this@CartActivity, R.drawable.bin)
+//                background.setBounds(
+//                    itemView.right + dX.toInt(),
+//                    itemView.top,
+//                    itemView.right,
+//                    itemView.bottom
+//                )
+//                background.draw(c)
+//                deleteIcon?.let {
+//                    val dpToPx = (40 * recyclerView.context.resources.displayMetrics.density).toInt()
+//                    val iconMargin = (itemView.height - dpToPx) / 2
+//                    val iconTop = itemView.top + iconMargin
+//                    val iconLeft = itemView.right - iconMargin - dpToPx
+//                    val iconRight = itemView.right - iconMargin
+//                    val iconBottom = iconTop + dpToPx
+//                    it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+//                    it.setTint(ContextCompat.getColor(this@CartActivity, R.color.white))
+//                    it.draw(c)
+//                }
+//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+//            }
+
+
             override fun onChildDraw(
                 c: Canvas, recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
                 actionState: Int, isCurrentlyActive: Boolean
             ) {
                 val itemView = viewHolder.itemView
-//              val background = ColorDrawable(Color.RED)
                 val background = ColorDrawable(ContextCompat.getColor(this@CartActivity, R.color.green))
-                val deleteIcon = ContextCompat.getDrawable(this@CartActivity, R.drawable.bin)
+
+                // Configure background
                 background.setBounds(
                     itemView.right + dX.toInt(),
                     itemView.top,
@@ -101,19 +133,32 @@ class CartActivity : BaseActivity() {
                     itemView.bottom
                 )
                 background.draw(c)
-                deleteIcon?.let {
-                    val dpToPx = (30 * recyclerView.context.resources.displayMetrics.density).toInt()
-                    val iconMargin = (itemView.height - dpToPx) / 2
-                    val iconTop = itemView.top + iconMargin
-                    val iconLeft = itemView.right - iconMargin - dpToPx
-                    val iconRight = itemView.right - iconMargin
-                    val iconBottom = iconTop + dpToPx
-                    it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-                    it.setTint(ContextCompat.getColor(this@CartActivity, R.color.white))
-                    it.draw(c)
+
+                // Add Lottie animation instead of icon
+                val lottieView = LottieAnimationView(recyclerView.context)
+                lottieView.setAnimation(R.raw.bin) // Replace with your Lottie file
+                val dpToPx = (40 * resources.displayMetrics.density).toInt()
+
+                // Positioning Lottie
+                val iconMargin = (itemView.height - dpToPx) / 2
+                val iconTop = itemView.top + iconMargin
+                val iconLeft = itemView.right - iconMargin - dpToPx
+                val iconBottom = iconTop + dpToPx
+                val iconRight = itemView.right - iconMargin
+
+                lottieView.layoutParams = RecyclerView.LayoutParams(dpToPx, dpToPx)
+                lottieView.x = iconLeft.toFloat()
+                lottieView.y = iconTop.toFloat()
+
+                // Play animation
+                if (!lottieView.isAnimating) {
+                    lottieView.playAnimation()
                 }
+                recyclerView.addView(lottieView)
+
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
+
         }
 
         ItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)

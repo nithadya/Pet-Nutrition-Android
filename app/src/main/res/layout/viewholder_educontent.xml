@@ -21,7 +21,8 @@
             android:layout_height="290dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/gray_cart_bg"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"

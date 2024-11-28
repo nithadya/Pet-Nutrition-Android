@@ -43,6 +43,7 @@ class FoodDetailActivity : BaseActivity() {
         val foodImageUri = intent.getStringExtra("foodImage")
         val foodPrice = intent.getDoubleExtra("foodPrice", 0.0)
         val foodDescription = intent.getStringExtra("foodDescription")
+        val userId = intent.getIntExtra("USER_ID", -1)
 
 
         // Set data to UI elements
@@ -63,7 +64,7 @@ class FoodDetailActivity : BaseActivity() {
 
     fun addToCart(){
         val foodId = intent.getIntExtra("foodId", 0)
-        val userId = intent.getIntExtra("userId", -1)
+        val userId = intent.getIntExtra("USER_ID", -1)
 
         if (userId == -1) {
             MotionToast.createColorToast(

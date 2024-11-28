@@ -149,8 +149,7 @@ class HomeActivity : BaseActivity() {
                     putExtra("foodPrice", selectedItem.price)
                     putExtra("foodDescription", selectedItem.description)
                     putExtra("foodId", selectedItem.foodId)
-                    putExtra("categoryId", selectedItem.categoryId)
-                    putExtra("userId", userId)
+                    putExtra("USER_ID", userId)
 
                 }
                 startActivity(intent)
@@ -172,8 +171,9 @@ class HomeActivity : BaseActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL,false)
             // Set up the adapter with the fetched Category data
             categoryAdapter = CategoryAdapter(category) { selectedItem: Category ->
-                intent.putExtra("categoryId", selectedItem.categoryId)
-                val intent = Intent(this, FoodListActivity::class.java)
+                val intent = Intent(this, FoodListActivity::class.java).apply {
+                    putExtra("categoryId", selectedItem.categoryId)
+                }
                 startActivity(intent)
             }
             recyclerView.adapter = categoryAdapter
@@ -207,7 +207,7 @@ class HomeActivity : BaseActivity() {
             Toast.makeText(this, "progressBarCategory is not initialized!", Toast.LENGTH_SHORT).show()
         }
 
-        // Optional: Implement auto-scrolling and dot indicator functionality here
+        //  Implement auto-scrolling and dot indicator functionality here
         setupAutoScroll()
         // setupDotsIndicator()
     }
@@ -216,12 +216,16 @@ class HomeActivity : BaseActivity() {
 
         viewPager.postDelayed(object : Runnable {
             override fun run() {
-                val nextItem = (viewPager.currentItem + 1) % viewPager.adapter!!.itemCount
-                viewPager.setCurrentItem(nextItem, true)
+                if (viewPager.adapter != null && viewPager.adapter!!.itemCount > 0) {
+                    val nextItem = (viewPager.currentItem + 1) % viewPager.adapter!!.itemCount
+                    viewPager.setCurrentItem(nextItem, true)
+                }
                 viewPager.postDelayed(this, 5000) // Scroll every 3 seconds
             }
         }, 5000)
     }
+
+
 
     private fun navigationPage(){
         val listNavBtn = findViewById<LinearLayout>(R.id.nav1)
@@ -238,7 +242,7 @@ class HomeActivity : BaseActivity() {
 
         cartNavBtn.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java).apply {
-                putExtra("userId", userId)
+                putExtra("USER_ID", userId)
             }
             startActivity(intent)
         }

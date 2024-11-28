@@ -5,10 +5,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.dognutritionapp.R
 import com.example.dognutritionapp.Repositories.AppRepository
@@ -27,6 +23,7 @@ class UserSettingActivity : BaseActivity() {
     private lateinit var editTextName: EditText
     private lateinit var editTextEmail: EditText
     private lateinit var editTextAddress: EditText
+    private lateinit var editTextUserType: EditText
     private lateinit var buttonEdit: Button
     private lateinit var buttonConfirm: Button
     private var currentUser: User? = null
@@ -45,6 +42,7 @@ class UserSettingActivity : BaseActivity() {
         editTextAddress = findViewById(R.id.editTextAddress)
         buttonEdit = findViewById(R.id.buttonEdit)
         buttonConfirm = findViewById(R.id.buttonConfirm)
+        editTextUserType = findViewById(R.id.editTextUserType)
 
         // Fetch user data and display it
         CoroutineScope(Dispatchers.Main).launch {
@@ -54,6 +52,7 @@ class UserSettingActivity : BaseActivity() {
                 editTextName.setText(user.name)
                 editTextEmail.setText(user.email)
                 editTextAddress.setText(user.address)
+                editTextUserType.setText(user.userType)
 
                 // Set the fields as non-editable initially
                 setEditableFields(false)
@@ -71,6 +70,7 @@ class UserSettingActivity : BaseActivity() {
                 user.name = editTextName.text.toString().trim()
                 user.email = editTextEmail.text.toString().trim()
                 user.address = editTextAddress.text.toString().trim()
+                user.userType = editTextUserType.text.toString().trim()
 
                 CoroutineScope(Dispatchers.Main).launch {
                     viewModel.updateUser(user)

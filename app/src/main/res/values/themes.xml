@@ -2,8 +2,14 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.DogNutritionApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/green</item>
     </style>
 
     <style name="Theme.DogNutritionApp" parent="Base.Theme.DogNutritionApp" />
+
+    <style name="CircleImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="borderWidth">3dp</item>
+    </style>
 </resources>
