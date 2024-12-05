@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -64,6 +65,11 @@ class AddContentActivity : BaseActivity() {
         btnSubmit.setOnClickListener {
             saveContent()
         }
+
+        // Handle "Back" button click
+        findViewById<ImageView>(R.id.backBtn).setOnClickListener {
+            finish()
+        }
     }
 
     private fun openImagePicker() {
@@ -74,6 +80,10 @@ class AddContentActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+
+            // Retrieve the image URI from the Intent data
+            val selectedImageUri = data.data
+
             if (selectedImageUri != null) {
                 // Load the selected image into the ImageView
                 Glide.with(this)
@@ -83,6 +93,10 @@ class AddContentActivity : BaseActivity() {
 
                 // Display the selected image URI in the EditText
                 etUrl.setText(selectedImageUri.toString())
+                // Store the URI in a global variable or property for later use
+                this.selectedImageUri = selectedImageUri
+                imagePreview.visibility = View.VISIBLE
+
             } else {
                 Toast.makeText(this, "Failed to pick image", Toast.LENGTH_SHORT).show()
             }
@@ -104,10 +118,11 @@ class AddContentActivity : BaseActivity() {
             description = description,
             contentUrl = imageUrl
         )
+
         // Insert content into the database
         viewModel.insertContent(content)
         // Display a success toast message
         Toast.makeText(this, "Content Added Successfully", Toast.LENGTH_SHORT).show()
-        finish() // Close the activity after successful submission
+        finish()
     }
 }

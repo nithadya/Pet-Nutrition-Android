@@ -94,15 +94,14 @@ class HomeActivity : BaseActivity() {
 
 
 
-//Initialize  Banners
+        //Initialize  Banners
         initializeBanners()
-//Initialize Food Category
+        //Initialize Food Category
         initializeCategory()
-
         initializePetFood()
-
         //Navigation for bottom bar navigation
         navigationPage()
+
 
     }
 
@@ -173,6 +172,7 @@ class HomeActivity : BaseActivity() {
             categoryAdapter = CategoryAdapter(category) { selectedItem: Category ->
                 val intent = Intent(this, FoodListActivity::class.java).apply {
                     putExtra("categoryId", selectedItem.categoryId)
+                    putExtra("USER_ID", userId)
                 }
                 startActivity(intent)
             }
@@ -233,6 +233,7 @@ class HomeActivity : BaseActivity() {
         val blogNavBtn = findViewById<LinearLayout>(R.id.nav3)
         val orderNavBtn = findViewById<LinearLayout>(R.id.nav4)
         val profileNavBtn = findViewById<LinearLayout>(R.id.nav5)
+        val searchHome = findViewById<ImageView>(R.id.searchHome)
 
 
         blogNavBtn.setOnClickListener {
@@ -249,7 +250,8 @@ class HomeActivity : BaseActivity() {
 
 
         listNavBtn.setOnClickListener {
-            val intent = Intent(this, FoodListActivity::class.java)
+            val intent = Intent(this, FoodListActivity::class.java).apply {
+                putExtra("USER_ID", userId) }
             startActivity(intent)
         }
 
@@ -262,6 +264,12 @@ class HomeActivity : BaseActivity() {
 
         profileNavBtn.setOnClickListener {
             val intent = Intent(this, UserSettingActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        searchHome.setOnClickListener {
+            val intent = Intent(this, FoodListActivity::class.java)
             startActivity(intent)
         }
     }

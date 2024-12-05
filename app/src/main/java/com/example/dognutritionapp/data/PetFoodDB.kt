@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Category::class, PetFoods::class, EducationalContent::class, Order::class,
-        User::class, Cart::class], // Add User entity here
+        User::class, Cart::class],
     version = 1,
     exportSchema = false
 )

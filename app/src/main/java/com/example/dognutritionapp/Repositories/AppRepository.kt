@@ -18,6 +18,10 @@ class AppRepository(private val database: PetFoodDB) {
         database.categoryDao().insert(category)
     }
 
+
+
+
+
     // Food Operations
 
     fun getAllFood(): LiveData<List<PetFoods>> {
@@ -52,12 +56,20 @@ class AppRepository(private val database: PetFoodDB) {
         return database.foodDao().getFoodById(foodId)
     }
 
+
+
+
+
     // Educational Content Operations
     val allContent: LiveData<List<EducationalContent>> = database.educationalContentDao().getAllContent()
 
     suspend fun insertContent(content: EducationalContent) {
         database.educationalContentDao().insert(content)
     }
+
+
+
+
 
     // Order Operations
     fun getOrdersByUser(userId: Int): LiveData<List<Order>> {
@@ -67,6 +79,10 @@ class AppRepository(private val database: PetFoodDB) {
     suspend fun insertOrder(order: Order) {
         database.orderDao().insert(order)
     }
+
+
+
+
 
     // User Operations
     val allUsers: LiveData<List<User>> = database.userDao().getAllUsers()
@@ -90,6 +106,10 @@ class AppRepository(private val database: PetFoodDB) {
     suspend fun getUserByEmailAndPassword(email: String, password: String): User? {
         return database.userDao().getUserByEmailAndPassword(email, password)
     }
+
+
+
+
 
 
     // Cart Operations

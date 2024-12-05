@@ -43,6 +43,12 @@ class EduContentActivity : BaseActivity() {
             val intent = Intent(this, AddContentActivity::class.java)
             startActivity(intent)
         }
+
+
+        // Handle "Back" button click
+        findViewById<ImageView>(R.id.backBtn).setOnClickListener {
+            finish()
+        }
     }
 
     fun initializeBlog(){

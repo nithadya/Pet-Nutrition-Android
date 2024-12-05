@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -43,6 +44,7 @@ class FoodDetailActivity : BaseActivity() {
         val foodImageUri = intent.getStringExtra("foodImage")
         val foodPrice = intent.getDoubleExtra("foodPrice", 0.0)
         val foodDescription = intent.getStringExtra("foodDescription")
+        val foodId = intent.getIntExtra("foodId",-1)
         val userId = intent.getIntExtra("USER_ID", -1)
 
 
@@ -59,6 +61,21 @@ class FoodDetailActivity : BaseActivity() {
         val addToCartBtn = findViewById<Button>(R.id.addToCartBtn)
         addToCartBtn.setOnClickListener {
             addToCart()
+        }
+
+
+        // Handle "Back" button click
+        findViewById<ImageView>(R.id.backBtn).setOnClickListener {
+            finish()
+        }
+
+
+        findViewById<ImageButton>(R.id.cartBtn).setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java).apply {
+                putExtra("USER_ID", userId)
+                putExtra("foodId", foodId)
+            }
+            startActivity(intent)
         }
     }
 

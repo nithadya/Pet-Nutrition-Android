@@ -59,7 +59,8 @@ class AddCategory : BaseActivity() {
                 viewModel.insertCategory(categoryItem)
                 finish() // Close activity after adding
             } else {
-                // Show error message if inputs are invalid
+
+
                 Toast.makeText(this, "Please fill in all fields and select an image", Toast.LENGTH_SHORT).show()
             }
         }

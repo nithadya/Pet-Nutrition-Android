@@ -5,18 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="0.7"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/loadin2" />
+        app:srcCompat="@drawable/content_bg2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/green_btn_background"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/bangers"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="3"
+            android:text="Add Contents"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/gray_cart_bg"
+        android:background="@drawable/white_trans_bg"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +114,7 @@
             android:textSize="16sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
@@ -78,13 +125,14 @@
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
+                android:layout_marginEnd="6dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/editext_bg"
                 android:clickable="true"
                 android:contentDescription="Lottie Button"
                 android:focusable="true"
-                app:lottie_autoPlay="false"
-                app:lottie_loop="false"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
                 app:lottie_rawRes="@raw/uploader"
                 app:lottie_speed="1.0"
                 tools:layout_gravity="center" />
@@ -94,11 +142,12 @@
                 android:id="@+id/imagePreview"
                 android:layout_width="0dp"
                 android:layout_height="180dp"
+                android:layout_marginStart="6dp"
                 android:layout_weight="0.8"
+                android:background="@drawable/white_trans_bg"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:visibility="visible"
-                app:srcCompat="@drawable/login6" />
+                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton

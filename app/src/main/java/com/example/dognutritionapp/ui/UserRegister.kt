@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -74,6 +75,12 @@ class UserRegister : BaseActivity() {
         textViewLogin.setOnClickListener {
             startActivity(Intent(this, UserLogin::class.java))
 
+        }
+
+
+        // Handle "Back" button click
+        findViewById<ImageView>(R.id.backBtn).setOnClickListener {
+            finish()
         }
     }
 }

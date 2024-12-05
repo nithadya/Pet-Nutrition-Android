@@ -5,13 +5,20 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +32,8 @@ import com.example.dognutritionapp.data.Cart
 import com.example.dognutritionapp.data.PetFoodDB
 import com.example.dognutritionapp.data.PetFoods
 import com.example.dognutritionapp.helper.BaseActivity
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
@@ -55,12 +64,20 @@ class CartActivity : BaseActivity() {
         }
         recyclerView.adapter = cartAdapter
 
+
+        // Find UI elements for total calculations
+        val totalFeeTxt = findViewById<TextView>(R.id.totalFeeTxt)
+        val deliveryFeeTxt = findViewById<TextView>(R.id.deliveryFeeTxt)
+        val totalTxt = findViewById<TextView>(R.id.totalTxt)
+
         // Observe cart items for changes and update the list
         viewModel.getCartItemsByUser(userId).observe(this) { items ->
             cartItems.clear() // Clear old items
             cartItems.addAll(items) // Add new items
+            updateTotalFees(totalFeeTxt, deliveryFeeTxt, totalTxt)
             cartAdapter.notifyDataSetChanged() // Notify adapter of data change
         }
+
 
         // Implement swipe-to-delete functionality
         val swipeHandler = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -86,46 +103,15 @@ class CartActivity : BaseActivity() {
                     ResourcesCompat.getFont(this@CartActivity, R.font.font1))
             }
 
-//            override fun onChildDraw(
-//                c: Canvas, recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
-//                actionState: Int, isCurrentlyActive: Boolean
-//            ) {
-//                val itemView = viewHolder.itemView
-////              val background = ColorDrawable(Color.RED)
-//                val background = ColorDrawable(ContextCompat.getColor(this@CartActivity, R.color.green))
-//                val deleteIcon = ContextCompat.getDrawable(this@CartActivity, R.drawable.bin)
-//                background.setBounds(
-//                    itemView.right + dX.toInt(),
-//                    itemView.top,
-//                    itemView.right,
-//                    itemView.bottom
-//                )
-//                background.draw(c)
-//                deleteIcon?.let {
-//                    val dpToPx = (40 * recyclerView.context.resources.displayMetrics.density).toInt()
-//                    val iconMargin = (itemView.height - dpToPx) / 2
-//                    val iconTop = itemView.top + iconMargin
-//                    val iconLeft = itemView.right - iconMargin - dpToPx
-//                    val iconRight = itemView.right - iconMargin
-//                    val iconBottom = iconTop + dpToPx
-//                    it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-//                    it.setTint(ContextCompat.getColor(this@CartActivity, R.color.white))
-//                    it.draw(c)
-//                }
-//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//            }
-
-
             override fun onChildDraw(
                 c: Canvas, recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
                 actionState: Int, isCurrentlyActive: Boolean
             ) {
                 val itemView = viewHolder.itemView
+//              val background = ColorDrawable(Color.RED)
                 val background = ColorDrawable(ContextCompat.getColor(this@CartActivity, R.color.green))
-
-                // Configure background
+                val deleteIcon = ContextCompat.getDrawable(this@CartActivity, R.drawable.bin)
                 background.setBounds(
                     itemView.right + dX.toInt(),
                     itemView.top,
@@ -133,34 +119,78 @@ class CartActivity : BaseActivity() {
                     itemView.bottom
                 )
                 background.draw(c)
-
-                // Add Lottie animation instead of icon
-                val lottieView = LottieAnimationView(recyclerView.context)
-                lottieView.setAnimation(R.raw.bin) // Replace with your Lottie file
-                val dpToPx = (40 * resources.displayMetrics.density).toInt()
-
-                // Positioning Lottie
-                val iconMargin = (itemView.height - dpToPx) / 2
-                val iconTop = itemView.top + iconMargin
-                val iconLeft = itemView.right - iconMargin - dpToPx
-                val iconBottom = iconTop + dpToPx
-                val iconRight = itemView.right - iconMargin
-
-                lottieView.layoutParams = RecyclerView.LayoutParams(dpToPx, dpToPx)
-                lottieView.x = iconLeft.toFloat()
-                lottieView.y = iconTop.toFloat()
-
-                // Play animation
-                if (!lottieView.isAnimating) {
-                    lottieView.playAnimation()
+                deleteIcon?.let {
+                    val dpToPx = (50 * recyclerView.context.resources.displayMetrics.density).toInt()
+                    val iconMargin = (itemView.height - dpToPx) / 2
+                    val iconTop = itemView.top + iconMargin
+                    val iconLeft = itemView.right - iconMargin - dpToPx
+                    val iconRight = itemView.right - iconMargin
+                    val iconBottom = iconTop + dpToPx
+                    it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                    it.setTint(ContextCompat.getColor(this@CartActivity, R.color.white))
+                    it.draw(c)
                 }
-                recyclerView.addView(lottieView)
-
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
 
         }
 
         ItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)
+
+
+
+        // Handle "Order" button click
+        findViewById<AppCompatButton>(R.id.Orderbutton).setOnClickListener {
+            if (cartItems.isEmpty()) {
+                Toast.makeText(this, "Your cart is empty!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }else{
+                Toast.makeText(this, "Order Ready Select a Payment method", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        // Handle "Back" button click
+        findViewById<ImageView>(R.id.backBtn).setOnClickListener {
+            finish()
+        }
+    }
+
+
+
+    private fun updateTotalFees(totalFeeTxt: TextView, deliveryFeeTxt: TextView, totalTxt: TextView) {
+        var subtotal = 0.0
+        var coroutineJobs = mutableListOf<Job>()
+
+        // Launch coroutine to fetch food details and calculate the subtotal
+        viewModel.viewModelScope.launch {
+            // Use async to fetch food details concurrently for each cart item
+            cartItems.forEach { cartItem ->
+                val job = launch {
+                    try {
+                        val food = viewModel.getFoodById(cartItem.foodId)
+                        food?.let {
+                            subtotal += cartItem.quantity * it.price
+                        }
+                    } catch (e: Exception) {
+                        // Handle the error (e.g., log it, show an error message)
+                        Log.e("CartAdapter", "Failed to fetch food details", e)
+                    }
+                }
+                coroutineJobs.add(job)
+            }
+
+            // Wait for all coroutines to finish
+            coroutineJobs.forEach { it.join() }
+
+            // Add courier charge
+            val courierCharge = 300.0
+            val total = subtotal + courierCharge
+
+            // Update the UI with the calculated values
+            totalFeeTxt.text = "LKR ${"%.2f".format(subtotal)}"
+            deliveryFeeTxt.text = "LKR ${"%.2f".format(courierCharge)}"
+            totalTxt.text = "LKR ${"%.2f".format(total)}"
+        }
     }
 }

@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.dognutritionapp.R
 import com.example.dognutritionapp.ui.LoadingActivity
 
+
+// This class managed the device status bar
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -24,6 +24,11 @@ class PetFoodViewModel (private val repository: AppRepository) : ViewModel() {
         return repository.getOrdersByUser(userId)
     }
 
+
+     fun insertOrders(order: Order)  = viewModelScope.launch {
+        repository.insertOrder(order)
+    }
+
     fun insertCategory(category: Category) = viewModelScope.launch {
         repository.insertCategory(category)
     }
